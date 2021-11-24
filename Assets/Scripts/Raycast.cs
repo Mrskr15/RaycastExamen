@@ -8,21 +8,15 @@ public class Raycast : MonoBehaviour
 
 {
     public Text time;
-    private bool isMenuClicked;
     public int totalTime;
     public int maxtime;
     public bool isWorking;
     public int count;
-    public float nextTime;
+    private float nextTime;
     public float pauseTime;
-    private float timePercent
-    {
-        get {return (float) totalTime / maxtime; }
-    }
 
     void Start()
     {
-        isMenuClicked = false;
         maxtime = totalTime;
         nextTime = 0;
         pauseTime = 1f;
@@ -51,9 +45,9 @@ public class Raycast : MonoBehaviour
                 {
                     totalTime = 0;
                 }
+
                 time.text = totalTime.ToString();
-            }
-            
+            }   
         }
 
         if(Input.GetMouseButtonDown(0))
@@ -66,23 +60,27 @@ public class Raycast : MonoBehaviour
                 Debug.Log("El rayo toca con " + hit.transform.gameObject.tag);
 
                 Debug.Log(hit.transform.gameObject.tag);
-            
-                if (selection.CompareTag("Cube1"))
-                {
-                    count = 1;
-                }
 
-                if (selection.CompareTag("Sphere"))
+                if (selection.CompareTag("Cube1") || selection.CompareTag("Sphere") || selection.CompareTag("Cube2"))
                 {
-                    count = 2;
-                }
+                    if (selection.CompareTag("Cube1"))
+                    {
+                        count = 1;
+                    }
 
-                if (selection.CompareTag("Cube2"))
-                {
-                    count = 3;
-                }
-                isWorking = true;
-                StartCoroutine(Countdown());
+                    if (selection.CompareTag("Sphere"))
+                    {
+                        count = 2;
+                    }
+
+                    if (selection.CompareTag("Cube2"))
+                    {
+                        count = 3;
+                    }
+
+                    isWorking = true;
+                    StartCoroutine(Countdown());
+                }               
             }
         }    
     }
